@@ -398,7 +398,7 @@ def mcmcSampler(steps, examples):
     #stats.printStats()
     return stats
 
-def experiment1():
+def infer():
     zeroDepth = generateSpecificTrees(25, 0, 'none')
     rightSkew = generateSpecificTrees(25, 1, 'right')
     leftSkew = generateSpecificTrees(25, 1, 'left')
@@ -408,18 +408,14 @@ def experiment1():
     for i in range(len(examples)):
         example = examples[i]
         stats = mcmcStats()
-        #if i == 0:
-        #    stats = mcmcSampler(50000, example)
-        #else:
-        if i == 3:
-            stats = mcmcSampler(200000, example)
-            print('************* stats **************')
-            stats.normalize()
-            stats.printStats()
-            stats.lsort()
-            print('********end stats ***************')
+        stats = mcmcSampler(200000, example)
+        print('************* stats **************')
+        stats.normalize()
+        stats.printStats()
+        stats.lsort()
+        print('********end stats ***************')
 
-def experiment2():
+def infersize():
     random = generateRandomExamples(25)
     (inputs, outputs, values) = random
     
@@ -432,10 +428,7 @@ def experiment2():
         
         lexample = (linputs, loutputs, lvalues)
         
-        if i < 3:
-            stats = mcmcSampler(80000, lexample)
-        else:
-            stats = mcmcSampler(200000, lexample)
+        stats = mcmcSampler(200000, lexample)
         print('*******stats*********')
         stats.normalize()
         stats.printStats()
@@ -445,7 +438,7 @@ def experiment2():
 
 if __name__ == '__main__':
 
-    experiment2()
+    infer()
 #    print('start 1')
 #     examples1 = generateSpecificTrees(25, 0, 'none')
 #     mcmcSampler(10000, examples1)
